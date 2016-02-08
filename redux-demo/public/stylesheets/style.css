@@ -1,0 +1,36 @@
+
+body {
+    font: 14px/1.5 "Lucida Grande", Helvetica, Arial, sans-serif;
+    background: url('../images/noise_lines.png') repeat 0 0;
+}
+
+a {
+    color: #00B7FF;
+}
+.ta-c{
+    text-align: center;
+}
+.container{
+    padding: 10px;
+    margin: 0 50px;
+    border-radius: 5px;
+    border: 1px solid #eeeeee;
+    background-color: #ffffff;
+}
+
+body { padding-top: 50px; }
+.result-table {
+    margin: 20px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+.result-table td { padding: 8px; }
+.result-table > tbody > tr > td:first-child {
+    width: 25%;
+    max-width: 300px;
+    text-align: right;
+}
+.result-table td table {
+    background-color: lightblue;
+    text-align: right;
+}

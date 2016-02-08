@@ -1,0 +1,45 @@
+<!Doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>index</title>
+ 
+	<link rel="stylesheet" href="http://localhost:3300/libs/metro/css/metro.min.css" />
+	<link rel="stylesheet" href="http://localhost:3300/stylesheets/style.css" />
+    <script type="text/javascript" src="http://localhost:3300/libs/jquery.js"></script>
+</head>
+<body>
+	<p>index</p>
+    <div id="app"></div>
+    <iframe src="" id="perview_frame"></iframe>
+</body>
+<script type="text/javascript">
+    $.ajax({
+        "url": 'http://localhost:3300/apis/get_blog_lists',
+        "dataType" : "jsonp",
+        "success": function(data){
+            console.log(data);
+        }
+    });
+
+    $.ajax({
+        "url": 'http://localhost:3300/apis/get_demo_lists',
+        "dataType" : "jsonp",
+        success: function(data){
+            console.log(data);
+            
+        }
+    });
+
+    $.ajax({
+        "url": 'http://localhost:3300/apis/build',
+        "type": 'post',
+        "success": function(data){
+            console.log(data.link)
+            $('#perview_frame')[0].src = data.link;
+        }
+
+    })
+</script>
+<script type="text/javascript" src="/build/main.js"></script>
+</html>
