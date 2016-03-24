@@ -1,7 +1,7 @@
 //var webpack = require('webpack');  
 module.exports = {
     entry: {
-        //"index":"./js/app.js",
+        "start":"./app/start.js",
         "build":"./app/main.js"
         //,"lib":["./js/lib/zepto.js","./js/lib/cordova.js","./js/lib/cordova_plugins.js"]
     },

@@ -1,79 +1,51 @@
 import React from 'react';
+import HelloContent from './helloContent';
 
-let HelloWord = React.createClass({
-    st: +new Date,
+let Hello = React.createClass({
     getDefaultProps() {
-        console.log('getDefaultProps__'+ (+new Date));
-        return {
-            name: ''
-        };
+        console.log('getDefaultProps____1');
     },
     getInitialState() {
-        console.log('getInitialState__'+ (+new Date-this.st));
+        console.log('getDefaultProps____2');
         return {
-            times: 1,
-            continue: true
-        };
-
-    },
-    componentWillMount() {/*
-        var _con = document.getElementById('content');
-        console.log(_con);*/
-        console.log('componentWillMount__' + (+new Date-this.st) );
-    },
-    componentDidMount() {/*
-        var _con = document.getElementById('content');
-        console.log(_con)*/
-        console.log('componentDidMount__' + (+new Date-this.st) );
-        this.add(this.state.continue);
-    }/*,
-    shouldComponentUpdate(newprops, newstate) {
-        console.log(this.props.name +'__shouldComponentUpdate__'+ (+new Date-this.st) )
-        return this.state != newstate;
-    }*/,
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            continue: !nextProps.stop
-        });
-        if(!nextProps.stop){
-            this.add(true);
-        }
-        else{
-            if(this.timer){
-                clearTimeout(this.timer);
-                this.timer = null;
-            }
+            name: ''
         }
     },
-    componentWillUpdate() {
-        console.log(this.props.name +'__componentWillUpdate__' + (+new Date-this.st) + '__' + this.state.times );
+    componentWillMount(){
+        console.log('componentWillMount____3');
     },
-    componentDidUpdate() {
-        console.log(this.props.name + '__componentDidUpdate__' + (+new Date-this.st)  + '__' + this.state.times);
-    },
-    render() {
-        console.log('render__'+ (+new Date-this.st))
-        return(
-            <p>
-                <span>hello {this.props.name} </span>
-                <span>{this.state.times}</span>
-            </p>
+    render(){
+        console.log('render_____4')
+        return (
+            <div>
+                <p>
+                    <input type="text" onChange={this._onchange} value={this.state.name} />
+                </p>
+                <div> {this.state.name} </div>
+                {/*<HelloContent text={this.state.name} />*/}
+            </div>
         )
     },
-    add(isContinue) {
-        if(!isContinue){
-            return;
-        }
-        this.timer = setTimeout(()=>{
-            let _time = this.state.times;
-            this.setState({
-                times: ++_time
-            });
-            if(this.state.times < 100){
-                this.add(this.state.continue);
-            }
-        }, this.props.delay);
+    /*componentDidMount() {
+        console.log('componentDidMount____5');
+    },
+    componentWillReceiveProps() {
+        console.log('father_componentDidMount____');
+    },
+    shouldComponentUpdate(newprops, newstate) {
+        console.log('shouldComponentUpdate___7');
+        return true;
+    },
+    componentWillUpdate() {
+        console.log('componentWillUpdate___8');
+    },
+    componentDidUpdate() {
+        console.log('componentDidUpdate___9');
+    },*/
+    _onchange(ev) {
+        this.setState({
+            "name": ev.target.value
+        });
     }
 });
-
-export default HelloWord;
+export default Hello;
