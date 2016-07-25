@@ -10,7 +10,7 @@ function handleDrag(data){
 
 ReactDOM.render(
     <Dragable onDrag={handleDrag} className="style-drag">
-        <ImageItem src="http://i2.tietuku.com/28e7f3ada4dd0f46s.jpg"
+        <ImageItem src="http://g.hiphotos.baidu.com/zhidao/pic/item/f3d3572c11dfa9ecccc8bdd967d0f703908fc11e.jpg"
                dragData="1" />
         <ImageItem src="http://img5q.duitang.com/uploads/item/201503/31/20150331135725_fVFVy.jpeg"
                dragData="2" />

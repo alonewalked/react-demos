@@ -44,41 +44,20 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	// index
-	'use strict';
-
-	function _interopRequireDefault(obj) {
-	       return obj && obj.__esModule ? obj : { 'default': obj };
+	var React = __webpack_require__(1)
+	var hot = __webpack_require__(158)(React);
+	var notify = __webpack_require__(159)("none");
+	module.exports = __webpack_require__(160)(hot.createClass);
+	if (false) {
+	  module.hot.accept("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\main.js", function () {
+	    try {
+	      module.exports = require("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\main.js")(hot.updateClass);
+	      notify.success("main.js")
+	    } catch (err) {
+	      notify.failure("main.js", err)
+	    }
+	  });
 	}
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(158);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _dragable = __webpack_require__(159);
-
-	var _dragable2 = _interopRequireDefault(_dragable);
-
-	var _componentImageItem = __webpack_require__(162);
-
-	var _componentImageItem2 = _interopRequireDefault(_componentImageItem);
-
-	function handleDrag(data) {
-	       document.getElementById('result1').innerText = data.join(' ');
-	}
-
-	_reactDom2['default'].render(_react2['default'].createElement(_dragable2['default'], { onDrag: handleDrag, className: 'style-drag' }, _react2['default'].createElement(_componentImageItem2['default'], { src: 'http://i2.tietuku.com/28e7f3ada4dd0f46s.jpg',
-	       dragData: '1' }), _react2['default'].createElement(_componentImageItem2['default'], { src: 'http://img5q.duitang.com/uploads/item/201503/31/20150331135725_fVFVy.jpeg',
-	       dragData: '2' }), _react2['default'].createElement(_componentImageItem2['default'], { src: 'http://www.xiaoxiongbizhi.com/wallpapers/1280_1024_85/b/t/bt1j6kcfu.jpg',
-	       dragData: '3' })), document.getElementById('react1'));
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "main.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 1 */
@@ -9337,6 +9316,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9370,8 +9350,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9382,7 +9360,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 
@@ -13231,7 +13213,10 @@
 	      }
 	    });
 
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+
 	    return nativeProps;
 	  }
 
@@ -18704,7 +18689,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.6';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 147 */
@@ -19668,6 +19653,231 @@
 
 /***/ },
 /* 158 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function (React) {
+	  var mounted = [];
+	  var Mixin = {
+	    componentDidMount: function () {
+	      mounted.push(this);
+	    },
+
+	    componentWillUnmount: function () {
+	      mounted.splice(mounted.indexOf(this), 1);
+	    }
+	  };
+
+	  var assimilatePrototype = (function () {
+	    var storedPrototype,
+	        knownPrototypes = [];
+
+	    function wrapFunction(key) {
+	      return function () {
+	        if (storedPrototype[key]) {
+	          return storedPrototype[key].apply(this, arguments);
+	        }
+	      };
+	    }
+
+	    function patchProperty(proto, key) {
+	      proto[key] = storedPrototype[key];
+
+	      if (typeof proto[key] !== 'function' ||
+	        key === 'type' ||
+	        key === 'constructor') {
+	        return;
+	      }
+
+	      proto[key] = wrapFunction(key);
+
+	      if (proto.__reactAutoBindMap[key]) {
+	        proto.__reactAutoBindMap[key] = proto[key];
+	      }
+	    }
+
+	    function updateStoredPrototype(freshPrototype) {
+	      storedPrototype = {};
+
+	      for (var key in freshPrototype) {
+	        if (freshPrototype.hasOwnProperty(key)) {
+	          storedPrototype[key] = freshPrototype[key];
+	        }
+	      }
+	    }
+
+	    function reconcileWithStoredPrototypes(freshPrototype) {
+	      knownPrototypes.push(freshPrototype);
+	      knownPrototypes.forEach(function (proto) {
+	        for (var key in storedPrototype) {
+	          patchProperty(proto, key);
+	        }
+	      });
+	    }
+
+	    return function (freshPrototype) {
+	      updateStoredPrototype(freshPrototype);
+	      reconcileWithStoredPrototypes(freshPrototype);
+	    };
+	  })();
+
+	  function injectMixinAndAssimilatePrototype(spec) {
+	    spec.mixins = spec.mixins || [];
+	    spec.mixins.push(Mixin);
+	    var Component = React.createClass(spec);
+	    assimilatePrototype(Component.type.prototype);
+	    return Component;
+	  }
+
+	  function forceUpdateTree(instance) {
+	    if (instance.forceUpdate) {
+	      instance.forceUpdate();
+	    }
+
+	    if (instance._renderedComponent) {
+	      forceUpdateTree(instance._renderedComponent);
+	    }
+
+	    for (var key in instance._renderedChildren) {
+	      forceUpdateTree(instance._renderedChildren[key]);
+	    }
+	  }
+
+	  var Component;
+	  return {
+	    createClass: function (spec) {
+	      Component = injectMixinAndAssimilatePrototype(spec);
+	      return Component;
+	    },
+
+	    updateClass: function (spec) {
+	      injectMixinAndAssimilatePrototype(spec);
+
+	      mounted.forEach(function (instance) {
+	        instance._bindAutoBindMethods();
+	        forceUpdateTree(instance);
+	      });
+
+	      return Component;
+	    }
+	  };
+	};
+
+/***/ },
+/* 159 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var SUCCESS_LEVELS = ['all'],
+	    FAILURE_LEVELS = ['errors', 'all'];
+
+	function requestPermission() {
+	  window.addEventListener('click', function () {
+	    Notification.requestPermission(function () { });
+	  });
+	}
+
+	function showNotification(message, options, timeout) {
+	  if (!Notification) {
+	    return;
+	  }
+
+	  var n = new Notification(message, options),
+	      close = n.close.bind(n);
+
+	  n.onclick = close;
+	  window.setTimeout(close, timeout);
+	}
+
+	function format(message, color) {
+	  return ['%c***** ' + message + ' *****', 'color:' + color + ';font-weight:bold;'];
+	}
+
+	module.exports = function (level) {
+	  var reportSuccess = SUCCESS_LEVELS.indexOf(level) !== -1,
+	      reportFailure = FAILURE_LEVELS.indexOf(level) !== -1;
+
+	  if (reportFailure || reportSuccess) {
+	    requestPermission();
+	  }
+
+	  return {
+	    success: function (file) {
+	      var message = 'Updated ' + file;
+	      console.log.apply(console, format(message, 'green'));
+
+	      if (reportSuccess) {
+	        showNotification('Components Reloaded', {
+	          body: file,
+	          tag: file,
+	          icon: 'data:image/png;base64,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'
+	        }, 3000);
+	      }
+	    },
+
+	    failure: function (file, err) {
+	      var message = 'Failed to load ' + file;
+	      console.error.apply(console, format(message, 'red'));
+	      console.error(err.message, err.stack);
+
+	      if (reportFailure) {
+	        showNotification('Reload Failed', {
+	          body: file,
+	          tag: file,
+	          icon: 'data:image/png;base64,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'
+	        }, 5000);
+	      } else {
+	        throw err;
+	      }
+	    }
+	  };
+	}
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function replaceCreateClass(createHotClass) {
+	// index
+	'use strict';
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { 'default': obj };
+	}
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(161);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _dragable = __webpack_require__(162);
+
+	var _dragable2 = _interopRequireDefault(_dragable);
+
+	var _componentImageItem = __webpack_require__(168);
+
+	var _componentImageItem2 = _interopRequireDefault(_componentImageItem);
+
+	function handleDrag(data) {
+	    document.getElementById('result1').innerText = data.join(' ');
+	}
+
+	_reactDom2['default'].render(_react2['default'].createElement(_dragable2['default'], { onDrag: handleDrag, className: 'style-drag' }, _react2['default'].createElement(_componentImageItem2['default'], { src: 'http://g.hiphotos.baidu.com/zhidao/pic/item/f3d3572c11dfa9ecccc8bdd967d0f703908fc11e.jpg',
+	    dragData: '1' }), _react2['default'].createElement(_componentImageItem2['default'], { src: 'http://img5q.duitang.com/uploads/item/201503/31/20150331135725_fVFVy.jpeg',
+	    dragData: '2' }), _react2['default'].createElement(_componentImageItem2['default'], { src: 'http://www.xiaoxiongbizhi.com/wallpapers/1280_1024_85/b/t/bt1j6kcfu.jpg',
+	    dragData: '3' })), document.getElementById('react1'));
+	  var Component = module.exports;
+	  module.exports = replaceCreateClass;
+	  return Component;
+	}
+
+/***/ },
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19676,11 +19886,29 @@
 
 
 /***/ },
-/* 159 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	var React = __webpack_require__(1)
+	var hot = __webpack_require__(158)(React);
+	var notify = __webpack_require__(159)("none");
+	module.exports = __webpack_require__(163)(hot.createClass);
+	if (false) {
+	  module.hot.accept("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\dragable\\index.js", function () {
+	    try {
+	      module.exports = require("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\dragable\\index.js")(hot.updateClass);
+	      notify.success("index.js")
+	    } catch (err) {
+	      notify.failure("index.js", err)
+	    }
+	  });
+	}
 
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function replaceCreateClass(createHotClass) {
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
@@ -19695,13 +19923,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(158);
+	var _reactDom = __webpack_require__(161);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _utils = __webpack_require__(160);
+	var _utils = __webpack_require__(164);
 
-	var _DragableItemMixin = __webpack_require__(161);
+	var _DragableItemMixin = __webpack_require__(166);
 
 	var _DragableItemMixin2 = _interopRequireDefault(_DragableItemMixin);
 
@@ -20031,36 +20259,40 @@
 
 	exports['default'] = Dragable;
 	module.exports = exports['default'];
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	  var Component = module.exports;
+	  module.exports = replaceCreateClass;
+	  return Component;
+	}
 
 /***/ },
-/* 160 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	var React = __webpack_require__(1)
+	var hot = __webpack_require__(158)(React);
+	var notify = __webpack_require__(159)("none");
+	module.exports = __webpack_require__(165)(hot.createClass);
+	if (false) {
+	  module.hot.accept("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\utils.js", function () {
+	    try {
+	      module.exports = require("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\utils.js")(hot.updateClass);
+	      notify.success("utils.js")
+	    } catch (err) {
+	      notify.failure("utils.js", err)
+	    }
+	  });
+	}
 
+/***/ },
+/* 165 */
+/***/ function(module, exports) {
+
+	module.exports = function replaceCreateClass(createHotClass) {
 	/**
 	 * @fileOverview jQuery replacement
 	 * @author jasonslyvia
 	 */
 	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports.on = on;
-	exports.off = off;
-	exports.isFunction = isFunction;
-	exports.isNumeric = isNumeric;
-	exports.position = position;
-	exports.width = width;
-	exports.height = height;
-	exports.outerWidthWithMargin = outerWidthWithMargin;
-	exports.outerHeightWithMargin = outerHeightWithMargin;
-	exports.closest = closest;
-	exports.assign = assign;
-	exports.get = get;
 
 	function on(el, eventName, callback) {
 	  if (el.addEventListener) {
@@ -20184,14 +20416,49 @@
 	  return document.querySelector(selector);
 	}
 
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "utils.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	module.exports = {
+	  'on': on,
+	  'off': off,
+	  'isFunction': isFunction,
+	  'isNumeric': isNumeric,
+	  'position': position,
+	  'width': width,
+	  'height': height,
+	  'outerWidthWithMargin': outerWidthWithMargin,
+	  'outerHeightWithMargin': outerHeightWithMargin,
+	  'closest': closest,
+	  'assign': assign,
+	  'get': get
+	};
+	  var Component = module.exports;
+	  module.exports = replaceCreateClass;
+	  return Component;
+	}
 
 /***/ },
-/* 161 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	var React = __webpack_require__(1)
+	var hot = __webpack_require__(158)(React);
+	var notify = __webpack_require__(159)("none");
+	module.exports = __webpack_require__(167)(hot.createClass);
+	if (false) {
+	  module.hot.accept("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\dragable\\DragableItemMixin.js", function () {
+	    try {
+	      module.exports = require("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\dragable\\DragableItemMixin.js")(hot.updateClass);
+	      notify.success("DragableItemMixin.js")
+	    } catch (err) {
+	      notify.failure("DragableItemMixin.js", err)
+	    }
+	  });
+	}
 
+/***/ },
+/* 167 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function replaceCreateClass(createHotClass) {
 	// DragableItemMixin
 	'use strict';
 
@@ -20223,11 +20490,11 @@
 	    var _again = true;_function: while (_again) {
 	        var object = _x,
 	            property = _x2,
-	            receiver = _x3;desc = parent = getter = undefined;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+	            receiver = _x3;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
 	            var parent = Object.getPrototypeOf(object);if (parent === null) {
 	                return undefined;
 	            } else {
-	                _x = parent;_x2 = property;_x3 = receiver;_again = true;continue _function;
+	                _x = parent;_x2 = property;_x3 = receiver;_again = true;desc = parent = undefined;continue _function;
 	            }
 	        } else if ('value' in desc) {
 	            return desc.value;
@@ -20265,18 +20532,27 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(158);
+	var _reactDom = __webpack_require__(161);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _utils = __webpack_require__(160);
+	var _require = __webpack_require__(164);
+
+	var on = _require.on;
+	var position = _require.position;
+	var closest = _require.closest;
+	var width = _require.width;
+	var height = _require.height;
+	var isFunction = _require.isFunction;
+	var outerWidthWithMargin = _require.outerWidthWithMargin;
+	var outerHeightWithMargin = _require.outerHeightWithMargin;
 
 	function _handleDragableItemReadyToMove(e) {
-	    var target = (0, _utils.closest)(e.target || e.srcElement, '.ui-dragable-item');
+	    var target = closest(e.target || e.srcElement, '.ui-dragable-item');
 	    var evt = {
 	        pageX: e.pageX || e.clientX || e.touches && e.touches[0].pageX,
 	        pageY: e.pageY || e.clientY || e.touches && e.touches[0].pageY,
-	        offset: (0, _utils.position)(target)
+	        offset: position(target)
 	    };
 	    if (this.props.onDragableItemReadyToMove) {
 	        this.props.onDragableItemReadyToMove(evt, this.props.dragableIndex);
@@ -20285,7 +20561,7 @@
 
 	function handleComponentDidMount() {
 	    var node = _reactDom2['default'].findDOMNode(this);
-	    (0, _utils.on)(node, 'selectstart', function (e) {
+	    on(node, 'selectstart', function (e) {
 	        if (e.preventDefault) {
 	            e.preventDefault();
 	        } else {
@@ -20293,15 +20569,15 @@
 	        }
 	    });
 
-	    if ((0, _utils.isFunction)(this.props.onDragableItemMount)) {
-	        this.props.onDragableItemMount((0, _utils.position)(node), (0, _utils.width)(node), (0, _utils.height)(node), (0, _utils.outerWidthWithMargin)(node), (0, _utils.outerHeightWithMargin)(node), this.props.dragableIndex);
+	    if (isFunction(this.props.onDragableItemMount)) {
+	        this.props.onDragableItemMount(position(node), width(node), height(node), outerWidthWithMargin(node), outerHeightWithMargin(node), this.props.dragableIndex);
 	    }
 	}
 
 	function handleComponentDidUpdate() {
 	    var node = _reactDom2['default'].findDOMNode(this);
-	    if ((0, _utils.isFunction)(this.props.onDragableItemMount)) {
-	        this.props.onDragableItemMount((0, _utils.position)(node), (0, _utils.width)(node), (0, _utils.height)(node), (0, _utils.outerWidthWithMargin)(node), (0, _utils.outerHeightWithMargin)(node), this.props.dragableIndex);
+	    if (isFunction(this.props.onDragableItemMount)) {
+	        this.props.onDragableItemMount(position(node), width(node), height(node), outerWidthWithMargin(node), outerHeightWithMargin(node), this.props.dragableIndex);
 	    }
 	}
 
@@ -20382,15 +20658,35 @@
 	};
 
 	module.exports = exports['default'];
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DragableItemMixin.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	  var Component = module.exports;
+	  module.exports = replaceCreateClass;
+	  return Component;
+	}
 
 /***/ },
-/* 162 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	var React = __webpack_require__(1)
+	var hot = __webpack_require__(158)(React);
+	var notify = __webpack_require__(159)("none");
+	module.exports = __webpack_require__(169)(hot.createClass);
+	if (false) {
+	  module.hot.accept("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\component\\ImageItem.js", function () {
+	    try {
+	      module.exports = require("!!E:\\github\\react-demos\\react-drag\\node_modules\\react-hot-loader\\replaceCreateClass.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\node_modules\\babel-loader\\index.js!E:\\github\\react-demos\\react-drag\\js\\component\\ImageItem.js")(hot.updateClass);
+	      notify.success("ImageItem.js")
+	    } catch (err) {
+	      notify.failure("ImageItem.js", err)
+	    }
+	  });
+	}
 
+/***/ },
+/* 169 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function replaceCreateClass(createHotClass) {
 	//ImageItem
 	'use strict';
 
@@ -20406,7 +20702,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _dragableIndexJs = __webpack_require__(159);
+	var _dragableIndexJs = __webpack_require__(162);
 
 	exports['default'] = _react2['default'].createClass({
 	  displayName: 'ImageItem',
@@ -20423,8 +20719,10 @@
 	  }
 	});
 	module.exports = exports['default'];
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/tangjing/Documents/react/react-demos/react-drag/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ImageItem.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	  var Component = module.exports;
+	  module.exports = replaceCreateClass;
+	  return Component;
+	}
 
 /***/ }
 /******/ ]);

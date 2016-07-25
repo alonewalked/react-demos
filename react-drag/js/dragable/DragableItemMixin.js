@@ -1,9 +1,9 @@
 // DragableItemMixin
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
+var {
     on, position, closest, width, height, isFunction,outerWidthWithMargin, outerHeightWithMargin
-} from '../utils';
+} = require('../utils');
 
 function handleDragableItemReadyToMove(e) {
     const target = closest((e.target || e.srcElement), '.ui-dragable-item');
