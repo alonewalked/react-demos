@@ -1,0 +1,33 @@
+{
+  "name": "react-route-conf",
+  "version": "1.0.0",
+  "description": "react route demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --inline --port 9090"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "brfs": "^1.4.3"
+  },
+  "dependencies": {
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "brfs": "^1.4.3",
+    "css-loader": "^0.19.x",
+    "history": "^4.2.0",
+    "html-loader": "^0.3.x",
+    "proxy-middleware": "^0.15.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-hot-loader": "^1.3.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^1.0.3",
+    "redux": "^3.3.1",
+    "redux-thunk": "^1.0.3",
+    "transform-loader": "^0.2.3",
+    "webpack": "^1.12.13"
+  }
+}
