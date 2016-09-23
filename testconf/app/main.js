@@ -22,6 +22,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 
+import render from './render-client';
+
 var ChildComponent = React.createClass({
   render: function() {
     return (
@@ -69,10 +71,10 @@ var App = React.createClass({
             onClickHandler={this._clickHandler} />
          <div dangerouslySetInnerHTML={{__html: this._renderToString()}} />
          <div dangerouslySetInnerHTML={{__html: this._renderToStaticMarkup()}} />
-         <div><a onClick={this._clickHandler}>click</a></div>
+         <div><a onClick={this._clickHandler}>click</a></div>,
+         <div dangerouslySetInnerHTML={{__html: render()}} />
       </div>
     )
   }
-
 });
 ReactDOM.render(<App />, document.getElementById('app'));
