@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-
+var _style = {
+    "top":"12px"
+}
 var App = React.createClass({
     getInitialState: function(){
         return {};
@@ -12,7 +14,7 @@ var App = React.createClass({
                 <h1> hello react </h1>
             </div>
         );
-    },
+    }, 
     print: function(str){
         console.log(str);
     }

@@ -27,9 +27,10 @@
     "react": "^0.14.0"
   },
   "dependencies": {
-    "babel-core": "^5.8.22",
-    "babel-loader": "^6.2.1",
-    "es6-promise": "^3.0.2",
+    "babel": "^6.5.2",
+    "babel-core": "^5.8.38",
+    "babel-loader": "^6.2.4",
+    "es6-promise": "^3.1.2",
     "fbjs": "^0.4.0",
     "linebreak": "^0.3.0",
     "object-assign": "^4.0.1",

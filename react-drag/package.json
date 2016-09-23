@@ -21,7 +21,8 @@
     "babel-loader": "^6.2.1",
     "brfs": "^1.4.3",
     "es6-promise": "^3.0.2",
-    "react-hot": "^0.1.0",
-    "transform-loader": "^0.2.3"
+    "react-hot-loader": "^0.1.0",
+    "transform-loader": "^0.2.3",
+    "webpack": "^1.12.14"
   }
 }

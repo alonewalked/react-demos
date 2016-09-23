@@ -4,7 +4,7 @@
  */
 'use strict';
 
-export function on(el, eventName, callback) {
+function on(el, eventName, callback) {
   if (el.addEventListener) {
     el.addEventListener(eventName, callback, false);
   }
@@ -15,7 +15,7 @@ export function on(el, eventName, callback) {
   }
 }
 
-export function off(el, eventName, callback) {
+function off(el, eventName, callback) {
   if (el.removeEventListener) {
     el.removeEventListener(eventName, callback);
   }
@@ -24,15 +24,15 @@ export function off(el, eventName, callback) {
   }
 }
 
-export function isFunction(func) {
+function isFunction(func) {
   return typeof func === 'function';
 }
 
-export function isNumeric(num) {
+function isNumeric(num) {
   return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-export function position(el) {
+function position(el) {
   if (!el) {
     return {
       left: 0,
@@ -46,15 +46,15 @@ export function position(el) {
   };
 }
 
-export function width(el) {
+function width(el) {
   return el.offsetWidth;
 }
 
-export function height(el) {
+function height(el) {
   return el.offsetHeight;
 }
 
-export function outerWidthWithMargin(el) {
+function outerWidthWithMargin(el) {
   let _width = el.offsetWidth;
   const style = el.currentStyle || getComputedStyle(el);
 
@@ -62,7 +62,7 @@ export function outerWidthWithMargin(el) {
   return _width;
 }
 
-export function outerHeightWithMargin(el) {
+function outerHeightWithMargin(el) {
   let _height = el.offsetHeight;
   const style = el.currentStyle || getComputedStyle(el);
 
@@ -70,7 +70,7 @@ export function outerHeightWithMargin(el) {
   return _height;
 }
 
-export function closest(el, className) {
+function closest(el, className) {
   className = className.replace(/^[\b\.]/, '');
   const reg = new RegExp('\\b'+className+'\\b');
 
@@ -90,7 +90,7 @@ export function closest(el, className) {
   return finder(el, className);
 }
 
-export function assign (target) {
+function assign (target) {
   if (target === undefined || target === null) {
     throw new TypeError('Cannot convert first argument to object');
   }
@@ -114,6 +114,21 @@ export function assign (target) {
   return to;
 }
 
-export function get(selector) {
+function get(selector) {
   return document.querySelector(selector);
+}
+
+module.exports = {
+  'on':on,
+  'off':off,
+  'isFunction':isFunction,
+  'isNumeric':isNumeric,
+  'position':position,
+  'width':width,
+  'height':height,
+  'outerWidthWithMargin':outerWidthWithMargin,
+  'outerHeightWithMargin':outerHeightWithMargin,
+  'closest':closest,
+  'assign':assign,
+  'get':get
 }
