@@ -1,17 +1,19 @@
-import React, { DOM } from 'react';
+import React, {
+    DOM
+} from 'react';
 var {
     table,
     tr,
     td
 } = DOM;
 
-export class Table extends React.Component {
+class Tabel extends React.Component {
     constructor(props) {
         super(props);
     }
     render() {
         return table({
-            children: this.props.datas.map(function (data) {
+            children: this.props.datas.map(function(data) {
                 return tr(null,
                     td(null, data.name),
                     td(null, data.age),
@@ -21,3 +23,5 @@ export class Table extends React.Component {
         });
     }
 };
+
+export const TableFactory = React.createFactory(Tabel);
