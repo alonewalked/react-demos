@@ -13,7 +13,7 @@ class Tabel extends React.Component {
     }
     render() {
         return table({
-            children: this.props.datas.map(function(data) {
+            children: this.props.datas.map((data)=>{
                 return tr(null,
                     td(null, data.name),
                     td(null, data.age),

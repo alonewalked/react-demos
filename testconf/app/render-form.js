@@ -8,6 +8,7 @@ const maps = { Form };
 import CONFIG from './config';
 
 const getComponent = () => CONFIG.component[2];
-const getValue = key => getComponent()[key];
+const obj = getComponent();
+const getValue = key => obj[key];
 
-export default (props)=>React.createElement(maps[getValue('type')], {...props});
+export default (props)=>React.createElement(maps[getValue('type')], {...props, ...obj});

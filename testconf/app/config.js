@@ -16,7 +16,7 @@ module.exports = {
     component: [{
         id:1,
         type:'Table',
-        children: [{
+        childrens: [{
 
         }],
         datas: [{
@@ -36,12 +36,33 @@ module.exports = {
     }, {
         id:2,
         type: 'Modal',
-        children: [{
+        childrens: [{
             id:2.1
         }]
     }, {
-        id:2,
+        id:3,
         type: 'Form',
-        children: []
+        action:'http://coolaf.com/tool/ajaxgp',
+        childrens: [{
+            id:3.1,
+            type:'input',
+            inputType: 'text',
+            bindfield: 'name',
+            label:'名称'
+        },{
+            id:3.2,
+            type:'input',
+            inputType: 'text',
+            bindfield: 'num',
+            label:'数量'
+        }, {
+            id:3.2,
+            type:'input',
+            inputType: 'button',
+            value:'提交',
+            onClick() {
+                this.doSubmit()
+            }
+        }]
     }]
 }
