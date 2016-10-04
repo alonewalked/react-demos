@@ -42,7 +42,8 @@ module.exports = {
     }, {
         id:3,
         type: 'Form',
-        action:'http://coolaf.com/tool/ajaxgp',
+        action:'http://localhost/post.php',
+        name: 'testform',
         childrens: [{
             id:3.1,
             type:'input',
@@ -61,7 +62,10 @@ module.exports = {
             inputType: 'button',
             value:'提交',
             onClick() {
-                this.doSubmit()
+                this.doSubmit('http://localhost/post.php', {
+                    name:'test',
+                    num:2
+                })
             }
         }]
     }]

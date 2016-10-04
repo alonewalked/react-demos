@@ -1,7 +1,10 @@
 import fetch from 'isomorphic-fetch';
+import querystring from 'qs';
 import React, {
     DOM
 } from 'react';
+import ReactDOM from 'react-dom';
+
 var {
     input,
     form,
@@ -21,8 +24,9 @@ export class MyForm extends React.Component {
         //     <input type="submit" value="Post" />
         //   </form>
         // );
-        var { childrens, action } = this.props;
+        var { childrens, action, name } = this.props;
         return form({
+            ref:name,
             action,
             children: childrens.map((chd)=> this.getChild(chd))
         });
@@ -37,13 +41,19 @@ export class MyForm extends React.Component {
                 _tmp.push(DOM[chd['type']]({
                     type: chd['inputType'],
                     value:chd['value'],
+                    name: chd['bindfield'],
                     onClick: chd['onClick']?chd['onClick'].bind(this):null
                 }));
                 return _tmp;
             })()
         });
-    },
-    doSubmit() {
-
+    }
+    doSubmit(...arg) {
+        var body = new FormData(ReactDOM.findDOMNode(this.refs['testform']));
+        return fetch(arg[0], {
+            method: 'POST',
+            mode: "cors",
+            body
+        });
     }
 };
