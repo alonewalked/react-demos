@@ -13,3 +13,4 @@ export default {table, tr, td};
 export * from './table';
 export * from './modal';
 export * from './form';
+export * from './input';

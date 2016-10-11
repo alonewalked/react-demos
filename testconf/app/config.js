@@ -46,21 +46,41 @@ module.exports = {
         name: 'testform',
         childrens: [{
             id:3.1,
-            type:'input',
+            type:'aInput',
             inputType: 'text',
             bindfield: 'name',
-            label:'名称'
+            label:'名称',
+            props: {
+                placeholder:'名称',
+                size:'small',
+                style:{
+                    width:200
+                }
+            }
         },{
             id:3.2,
-            type:'input',
+            type:'aInput',
             inputType: 'text',
             bindfield: 'num',
-            label:'数量'
+            label:'数量',
+            props: {
+                placeholder:'数量',
+                size:'small',
+                style:{
+                    width:200
+                }
+            }
         }, {
             id:3.2,
-            type:'input',
+            type:'aInput',
             inputType: 'button',
-            value:'提交',
+            props: {
+                size:'small',
+                value:'提交',
+                style:{
+                    width:60
+                }
+            },
             onClick() {
                 this.doSubmit('http://localhost/post.php', {
                     name:'test',
@@ -68,5 +88,9 @@ module.exports = {
                 })
             }
         }]
+    }, {
+        id:4,
+        type:'Input',
+        childrens:[]
     }]
 }

@@ -6,6 +6,7 @@ import ReactDOMServer from 'react-dom/server';
 import renderTable from './render-table';
 import renderModal from './render-modal';
 import renderForm from './render-form';
+import renderInput from './render-input';
 
 var ChildComponent = React.createClass({
     render: function() {
@@ -62,6 +63,7 @@ var App = React.createClass({
              <div dangerouslySetInnerHTML={{__html: renderTable()}} />
              {renderModal({showmoal, doClose:this._showModalHandler.bind(this, false)})}
              {renderForm()}
+             {renderInput({value:1})}
           </div>
         )
     }

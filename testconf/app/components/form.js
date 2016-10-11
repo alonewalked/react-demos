@@ -5,25 +5,24 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 
+import { Input } from 'antd';
+
+const antDom = {
+    aInput: React.createFactory(Input)
+};
+
 var {
-    input,
     form,
     p,
     span
 } = DOM;
+
 export class MyForm extends React.Component {
 	constructor(props) {
         super(props);
         this.displayName = 'Form'
     }
 	render() {
-        // return (
-        //   <form >
-        //     <input type="text" placeholder="Your name" />
-        //     <input type="text" placeholder="Say something..." />
-        //     <input type="submit" value="Post" />
-        //   </form>
-        // );
         var { childrens, action, name } = this.props;
         return form({
             ref:name,
@@ -33,17 +32,18 @@ export class MyForm extends React.Component {
 	}
     getChild(chd) {
         return p({
-            children:(()=>{
+            children:(()=> {
                 var _tmp = [];
                 if(chd.label) {
                     _tmp.push(span(null, chd.label));
                 }
-                _tmp.push(DOM[chd['type']]({
+                let _props = {
                     type: chd['inputType'],
-                    value:chd['value'],
                     name: chd['bindfield'],
                     onClick: chd['onClick']?chd['onClick'].bind(this):null
-                }));
+                };
+                _props = Object.assign({}, _props, chd['props']);
+                _tmp.push(antDom[chd['type']](_props));
                 return _tmp;
             })()
         });
