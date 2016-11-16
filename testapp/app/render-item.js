@@ -7,7 +7,7 @@ const maps = { Tabel, Box };
 // config
 //import CONFIG from './config';
 
-const getComponent = () => CONFIG.component[1];
-const getValue = key => getComponent()[key];
+//const getComponent = () => CONFIG.component[1];
+//const getValue = key => getComponent()[key];
 
 export default (type, props)=>React.createElement(maps[type], {...props});
