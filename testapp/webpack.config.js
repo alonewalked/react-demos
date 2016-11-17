@@ -1,31 +1,60 @@
 var webpack = require('webpack');
+const path = require('path');
+const sourcePath = path.join(__dirname, './app');
+
 module.exports = {
   entry: {
-    "main": ['webpack/hot/dev-server','./app/main.js']
+    "main": './main.js'
   },
   output: {
-    publicPath: "http://127.0.0.1:9090/build/",
+    publicPath: "/",
     path: __dirname+'/build',
-    filename: "[name].js"
+    filename: "[name].bundle.js"
   },
   module: {
-    loaders: [
-        { test: /\.js?$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
-        { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
-        { test: /\.css$/, loader: "style!css" }
+    rules: [
+        { test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader'
+        ] },
+        { test: /\.css$/, loader: ["style-loader", "css-loader"] }
     ]
   },
   devtool: "source-map",
+  context: sourcePath,
   resolve: {
-    root: __dirname,
-    modulesDirectories: [
-      'node_modules'
-    ]
+      extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
+      modules: [
+        path.resolve(__dirname, 'node_modules'),
+        sourcePath
+      ]
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"'
     }),
     new webpack.HotModuleReplacementPlugin()
-  ]
+    ],
+    devServer: {
+      contentBase: './app',
+      historyApiFallback: true,
+      port: 9090,
+      inline: true,
+      hot: true,
+      stats: {
+        assets: true,
+        children: false,
+        chunks: false,
+        hash: false,
+        modules: false,
+        publicPath: false,
+        timings: true,
+        version: false,
+        warnings: true,
+        colors: {
+          green: '\u001b[32m',
+        }
+      }
+    }
 }
